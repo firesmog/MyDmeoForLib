@@ -1,0 +1,4 @@
+include ':MpChartLib'
+include ':radarview'
+include ':app'
+rootProject.name = "MyDmeoForLib"
