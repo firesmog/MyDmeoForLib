@@ -704,10 +704,12 @@ public class RadarView extends View {
             mValuePaint.setStyle(Paint.Style.STROKE);
             mValuePaint.setStrokeWidth(radarData.getLineWidth());
             canvas.drawPath(mRadarPath, mValuePaint);
-            mValuePaint.setColor(radarData.getColor());
-            mValuePaint.setStyle(Paint.Style.FILL);
-            mValuePaint.setAlpha(150);
-            canvas.drawPath(mRadarPath, mValuePaint);
+            if(radarData.isNeedFillColor()){
+                mValuePaint.setColor(radarData.getColor());
+                mValuePaint.setStyle(Paint.Style.FILL);
+                mValuePaint.setAlpha(150);
+                canvas.drawPath(mRadarPath, mValuePaint);
+            }
             if (radarData.isValueTextEnable()) {
                 List<String> valueText = radarData.getValueText();
                 for (int k = 0; k < textPoint.length; k++) {
@@ -723,6 +725,8 @@ public class RadarView extends View {
             }
         }
     }
+
+
 
 
     private void drawCenterText(Canvas canvas) {

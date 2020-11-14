@@ -21,6 +21,8 @@ public class RadarData {
     private int mVauleTextColor;
     private float mValueTextSize;
     private boolean mValueTextEnable;
+    private boolean needFillColor = true;
+
 
     public RadarData(List<Float> value) {
         this("data", value, new RandomColor().randomColor());
@@ -117,6 +119,15 @@ public class RadarData {
 
     public void setLineWidth(float width) {
         this.mLineWidth = width;
+    }
+
+
+    public boolean isNeedFillColor() {
+        return needFillColor;
+    }
+
+    public void setNeedFillColor(boolean needFillColor) {
+        this.needFillColor = needFillColor;
     }
 
     private void initValueText() {

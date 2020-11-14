@@ -169,7 +169,6 @@ public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
             }
 
             Path path = new Path();
-            Log.d("LEIDA","isSingleColor" + isSingleColor + ", isCustomFill = " + isCustomFill + ", j = " + j);
             if (isCustomFill) {
                 dataSet.getFill(pos)
                         .fillRect(
