@@ -145,6 +145,8 @@ public class PieChart extends PieRadarChartBase<PieData> {
         drawMarkers(canvas);
     }
 
+
+
     @Override
     public void calculateOffsets() {
         super.calculateOffsets();

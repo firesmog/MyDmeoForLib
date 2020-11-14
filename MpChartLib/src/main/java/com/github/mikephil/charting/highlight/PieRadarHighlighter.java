@@ -1,5 +1,7 @@
 package com.github.mikephil.charting.highlight;
 
+import android.util.Log;
+
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.charts.PieRadarChartBase;
 
@@ -25,6 +27,7 @@ public abstract class PieRadarHighlighter<T extends PieRadarChartBase> implement
 
     @Override
     public Highlight getHighlight(float x, float y) {
+        Log.d("getHighlight","getHighlight = " +  x + ", y = "+ y);
 
         float touchDistanceToCenter = mChart.distanceToCenter(x, y);
 
@@ -37,12 +40,54 @@ public abstract class PieRadarHighlighter<T extends PieRadarChartBase> implement
         } else {
 
             float angle = mChart.getAngleForPoint(x, y);
+            Log.d("getHighlight","getHighlight = " +  angle);
 
             if (mChart instanceof PieChart) {
                 angle /= mChart.getAnimator().getPhaseY();
             }
 
             int index = mChart.getIndexForAngle(angle);
+            Log.d("getHighlight","getHighlight index = " + index);
+
+
+            // check if the index could be found
+            if (index < 0 || index >= mChart.getData().getMaxEntryCountSet().getEntryCount()) {
+                return null;
+
+            } else {
+                return getClosestHighlight(index, x, y);
+            }
+        }
+    }
+
+    @Override
+    public Highlight getHighlight(float x, float y,int index1,boolean isFirst) {
+        if(isFirst){
+            return getClosestHighlight(index1, x, y);
+
+        }
+        Log.d("getHighlight","getHighlight = " +  x + ", y = "+ y);
+
+        float touchDistanceToCenter = mChart.distanceToCenter(x, y);
+
+        // check if a slice was touched
+        if (touchDistanceToCenter > mChart.getRadius()) {
+
+            // if no slice was touched, highlight nothing
+            return null;
+
+        } else {
+
+            float angle = mChart.getAngleForPoint(x, y);
+            Log.d("getHighlight","getHighlight = " +  angle);
+
+            if (mChart instanceof PieChart) {
+                angle /= mChart.getAnimator().getPhaseY();
+            }
+
+            int index = mChart.getIndexForAngle(angle);
+            Log.d("getHighlight","getHighlight index = " + index);
+
 
             // check if the index could be found
             if (index < 0 || index >= mChart.getData().getMaxEntryCountSet().getEntryCount()) {

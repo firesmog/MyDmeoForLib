@@ -42,6 +42,13 @@ public class ChartHighlighter<T extends BarLineScatterCandleBubbleDataProvider> 
         return high;
     }
 
+    @Override
+    public Highlight getHighlight(float x, float y, int index, boolean isFirst) {
+        return null;
+    }
+
+
+
     /**
      * Returns a recyclable MPPointD instance.
      * Returns the corresponding xPos for a given touch-position in pixels.

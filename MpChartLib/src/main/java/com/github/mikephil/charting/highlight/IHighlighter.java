@@ -14,4 +14,5 @@ public interface IHighlighter
      * @return
      */
     Highlight getHighlight(float x, float y);
+    Highlight getHighlight(float x, float y,int index,boolean isFirst);
 }

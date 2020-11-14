@@ -4,15 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.SpannableString;
+import android.util.Log;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.readboy.radarview.RadarData;
 
@@ -55,6 +60,18 @@ public class MainActivity extends AppCompatActivity {
         //选中变大
         mPieChart.setHighlightPerTapEnabled(true);
 
+        mPieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+
+            }
+
+            @Override
+            public void onNothingSelected() {
+
+            }
+        });
+
         //模拟数据
         ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
         entries.add(new PieEntry(80, "困难"));
@@ -63,6 +80,14 @@ public class MainActivity extends AppCompatActivity {
         //设置数据
         setData(entries);
 
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                mPieChart.performDefaultHighlight();
+                Log.d("TAGGG","mpchart = "  + mPieChart.getData().getDataSet());
+            }
+        },50);
 
         //默认动画
         mPieChart.animateY(1400, Easing.EaseInCirc);
@@ -118,10 +143,13 @@ public class MainActivity extends AppCompatActivity {
         //文字的颜色
         data.setValueTextSize(14f);
         data.setValueTextColor(Color.BLACK);
+        //mPieChart.highlightValue(new Highlight());
         mPieChart.setData(data);
         // 撤销所有的亮点
         mPieChart.highlightValues(null);
+
         mPieChart.invalidate();
+
 
     }
 }

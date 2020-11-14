@@ -69,6 +69,12 @@ public abstract class PieRadarChartBase<T extends ChartData<? extends IDataSet<?
         mChartTouchListener = new PieRadarChartTouchListener(this);
     }
 
+    public void performDefaultHighlight(){
+        if(null != mChartTouchListener){
+            mChartTouchListener.performDefaultHighlight(2);
+        }
+    }
+
     @Override
     protected void calcMinMax() {
         //mXAxis.mAxisRange = mData.getXVals().size() - 1;
