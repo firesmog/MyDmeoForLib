@@ -131,7 +131,7 @@ public class LineChartManager {
         lineDataSet.setCircleRadius(3f);
         lineDataSet.setDrawHorizontalHighlightIndicator(false);
         lineDataSet.setHighLightColor(Color.RED);
-        lineDataSet.setHighlightLineWidth(3f);
+        lineDataSet.setHighlightLineWidth(2f);
 
 
         lineDataSet.setDrawCircles(false);

@@ -1,6 +1,8 @@
 package com.github.mikephil.charting.renderer;
 
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.Log;
 
@@ -120,6 +122,7 @@ public abstract class LineScatterCandleRadarRenderer extends BarLineScatterCandl
         inner:
         for (int i = 0; i< lineData.getDataSetCount(); i++){
             ILineDataSet dataSet = lineData.getDataSetByIndex(i);
+            //todo Lzy 各个点的颜色设置
             mHighlightPaint.setColor(lineData.getColors()[i]);
             for(int j = 0 ; j < dataSet.getEntryCount(); j++){
                 Entry ele = dataSet.getEntryForIndex(j);
@@ -128,13 +131,16 @@ public abstract class LineScatterCandleRadarRenderer extends BarLineScatterCandl
                     mCirclesBuffer[0] = ele.getX();
                     mCirclesBuffer[1] = ele.getY() * mAnimator.getPhaseY();
                     trans.pointValuesToPixel(mCirclesBuffer);
-                    Log.d("TAGGGGG","after invalidate drawHighlightLines = xxxxxxx = " + mCirclesBuffer[0] + ", yyyy = " +  mCirclesBuffer[1] );
+                    //todo Lzy 点击画圆 实心圆
+
+                    mHighlightPaint.setStyle(Paint.Style.FILL);
                     c.drawCircle(mCirclesBuffer[0],mCirclesBuffer[1],3,mHighlightPaint);
                     continue inner;
                 }
 
             }
         }
+        mHighlightPaint.setStyle(Paint.Style.STROKE);
         //
     }
 }
