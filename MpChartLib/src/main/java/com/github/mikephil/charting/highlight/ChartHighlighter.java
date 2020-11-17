@@ -1,5 +1,7 @@
 package com.github.mikephil.charting.highlight;
 
+import android.util.Log;
+
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarLineScatterCandleBubbleData;
 import com.github.mikephil.charting.data.DataSet;
@@ -154,6 +156,8 @@ public class ChartHighlighter<T extends BarLineScatterCandleBubbleDataProvider> 
 
         return mHighlightBuffer;
     }
+
+
 
     /**
      * An array of `Highlight` objects corresponding to the selected xValue and dataSetIndex.

@@ -2,6 +2,7 @@ package com.readboy.mydmeoforlib;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -85,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
 
                 mPieChart.performDefaultHighlight();
-                Log.d("TAGGG","mpchart = "  + mPieChart.getData().getDataSet());
             }
         },50);
 
@@ -106,6 +106,8 @@ public class MainActivity extends AppCompatActivity {
        // mPieChart.setEntryLabelColor(Color.BLUE);
         //mPieChart.setEntryLabelTextSize(18f);
 
+
+        startActivity(new Intent(MainActivity.this,LineChartActivity.class));
     }
 
     //设置数据

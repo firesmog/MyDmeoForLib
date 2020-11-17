@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import com.github.mikephil.charting.animation.ChartAnimator;
 import com.github.mikephil.charting.charts.LineChart;
@@ -671,6 +672,7 @@ public class LineChartRenderer extends LineRadarRenderer {
 
             for (int j = mXBounds.min; j <= boundsRangeCount; j++) {
 
+                //todo Lzy
                 Entry e = dataSet.getEntryForIndex(j);
 
                 if (e == null) break;
@@ -696,10 +698,11 @@ public class LineChartRenderer extends LineRadarRenderer {
         }
     }
 
-    @Override
+    /*@Override
     public void drawHighlighted(Canvas c, Highlight[] indices) {
-
         LineData lineData = mChart.getLineData();
+        Log.d("TAGGGGG","after invalidate drawHighlightLines" + lineData.getDataSetCount());
+
 
         for (Highlight high : indices) {
 
@@ -720,7 +723,37 @@ public class LineChartRenderer extends LineRadarRenderer {
 
             // draw the lines
             drawHighlightLines(c, (float) pix.x, (float) pix.y, set);
+
         }
+    }*/
+
+    @Override
+    public void drawHighlighted(Canvas c, Highlight[] indices) {
+        LineData lineData = mChart.getLineData();
+        for (Highlight high : indices) {
+
+            ILineDataSet set = lineData.getDataSetByIndex(high.getDataSetIndex());
+
+            if (set == null || !set.isHighlightEnabled())
+                continue;
+
+            Entry e = set.getEntryForXValue(high.getX(), high.getY());
+
+            if (!isInBoundsX(e, set))
+                continue;
+
+            MPPointD pix = mChart.getTransformer(set.getAxisDependency()).getPixelForValues(e.getX(), e.getY() * mAnimator
+                    .getPhaseY());
+
+            high.setDraw((float) pix.x, (float) pix.y);
+
+
+            // draw the lines
+            drawHighlightLines(mChart,c, e.getX(), e.getY (),(float) pix.x, (float) pix.y, set,lineData);
+
+        }
+
+
     }
 
     /**

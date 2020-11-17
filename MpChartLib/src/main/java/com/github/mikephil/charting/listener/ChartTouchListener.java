@@ -116,6 +116,8 @@ public abstract class ChartTouchListener<T extends Chart<?>> extends GestureDete
      *
      * @param e
      */
+
+    //todo 折线也是走到了这个部分
     protected void performHighlight(Highlight h, MotionEvent e) {
         Log.d("performHighligh","performHighligh x = " + e.getX() + ", y = " + e.getY() + mChart.getDescription());
         if (h == null || h.equalTo(mLastHighlighted)) {

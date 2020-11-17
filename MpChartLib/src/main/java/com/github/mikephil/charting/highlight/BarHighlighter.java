@@ -1,5 +1,7 @@
 package com.github.mikephil.charting.highlight;
 
+import android.util.Log;
+
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.BarLineScatterCandleBubbleData;

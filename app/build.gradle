@@ -31,5 +31,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     api project(':radarview')
     api project(':MpChartLib')
+    implementation 'com.google.code.gson:gson:2.8.4'
 
 }

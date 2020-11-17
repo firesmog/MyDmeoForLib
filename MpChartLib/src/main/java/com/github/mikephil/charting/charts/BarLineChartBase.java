@@ -251,6 +251,7 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
             mAxisRendererRight.renderGridLines(canvas);
 
         // if highlighting is enabled
+        //Log.d("TAGGGGG","after invalidate" + valuesToHighlight());
         if (valuesToHighlight())
             mRenderer.drawHighlighted(canvas, mIndicesToHighlight);
 
