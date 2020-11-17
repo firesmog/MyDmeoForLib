@@ -14,6 +14,7 @@
             <option value="$PROJECT_DIR$/MpChartLib" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/radarview" />
+            <option value="$PROJECT_DIR$/thinkmap" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

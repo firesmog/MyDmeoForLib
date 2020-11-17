@@ -1,3 +1,4 @@
+include ':thinkmap'
 include ':MpChartLib'
 include ':radarview'
 include ':app'
