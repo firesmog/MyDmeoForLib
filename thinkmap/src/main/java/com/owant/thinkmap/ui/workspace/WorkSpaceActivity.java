@@ -40,8 +40,8 @@ import com.owant.thinkmap.ui.about.AboutUsActivity;
 import com.owant.thinkmap.ui.editmap.EditMapActivity;
 import com.owant.thinkmap.util.AndroidUtil;
 import com.owant.thinkmap.util.SharePreUtil;
-import com.owant.thinkmap.view.RecycleItemClickListener;
-import com.owant.thinkmap.view.RecycleItemLongClickListener;
+import com.owant.thinkmap.interfaces.RecycleItemClickListener;
+import com.owant.thinkmap.interfaces.RecycleItemLongClickListener;
 
 import java.io.InputStream;
 import java.util.ArrayList;

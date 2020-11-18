@@ -1,5 +1,7 @@
 package com.owant.thinkmap.model;
 
+import android.util.Log;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -41,9 +43,12 @@ public class TreeModel<T> implements Serializable {
     public void addNode(NodeModel<T> start, NodeModel<T>... nodes) {
         int index = 1;
         NodeModel<T> temp = start;
+
+        //todo Lzy 感觉这里有问题呢
         if (temp.getParentNode() != null) {
             index = temp.getParentNode().floor;
         }
+
 
         LinkedList<NodeModel<T>> childNodes = temp.getChildNodes();
 
@@ -105,15 +110,15 @@ public class TreeModel<T> implements Serializable {
 
     /**
      * 同一个父节点的上下
-     *
+     * 当新增一个节点时，该节点上面的元素及view都不发生变化，仅需要修改该节点下面的坐标
      * @param midPreNode
      * @return
      */
     private NodeModel<T> getLowNode(NodeModel<T> midPreNode) {
         NodeModel<T> find = null;
         NodeModel<T> parentNode = midPreNode.getParentNode();
-
         if (parentNode != null && parentNode.getChildNodes().size() >= 2) {
+            Log.d("LZYYYY","midPreNode = " + midPreNode.getValue() + ", parent = " + parentNode.getValue());
             Deque<NodeModel<T>> queue = new ArrayDeque<>();
             NodeModel<T> rootNode = parentNode;
             queue.add(rootNode);

@@ -1,6 +1,7 @@
 package com.owant.thinkmap.control;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
@@ -40,22 +41,26 @@ public class MoveAndScaleHandler implements ScaleGestureDetector.OnScaleGestureL
 
         int currentX = (int) event.getRawX();//获得手指当前的坐标,相对于屏幕
         int currentY = (int) event.getRawY();
-
+        Log.d("LZY","current onTouchEvent" +         (event.getAction() & MotionEvent.ACTION_MASK));
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
+                // 0
             case MotionEvent.ACTION_DOWN:
                 mode = 1;
                 break;
+                //1
             case MotionEvent.ACTION_UP:
                 mode = 0;
                 break;
+                //6
             case MotionEvent.ACTION_POINTER_UP:
                 //将模式进行为负数这样，多指下，抬起不会触发移动
                 mode = -2;
                 break;
+                //5
             case MotionEvent.ACTION_POINTER_DOWN:
                 mode += 1;
                 break;
-
+                //2
             case MotionEvent.ACTION_MOVE:
                 if (mode >= 2) {
                     //todo LZY缩放
@@ -93,10 +98,13 @@ public class MoveAndScaleHandler implements ScaleGestureDetector.OnScaleGestureL
         return (float) Math.sqrt(x * x + y * y);
     }
 
+    //todo Lzy目前双击放大缩小还未触发这个方法
     @Override
     public boolean onScale(ScaleGestureDetector detector) {
 
+
         float scaleFactor = detector.getScaleFactor();
+        Log.d("LZY","current onScale" +         scaleFactor);
 
         if (scaleFactor >= max_scale) {
             scaleFactor = max_scale;

@@ -48,6 +48,7 @@ public class RightTreeLayoutManager implements TreeLayoutManager {
                 rootTreeViewLayout((NodeView) rootView);
             }
 
+            //todo Lzy这里添加next布局
             mTreeModel.addForTreeItem(new ForTreeItem<NodeModel<String>>() {
                 @Override
                 public void next(int msg, NodeModel<String> next) {
@@ -136,6 +137,7 @@ public class RightTreeLayoutManager implements TreeLayoutManager {
             ArrayList<NodeModel<String>> allLowNodes = mTree.getAllLowNodes(bn);
             ArrayList<NodeModel<String>> allPreNodes = mTree.getAllPreNodes(tn);
 
+
             for (NodeModel<String> low : allLowNodes) {
                 NodeView view = (NodeView) treeView.findNodeViewFromNodeModel(low);
                 moveNodeLayout(treeView, view, bnDr);
@@ -150,7 +152,7 @@ public class RightTreeLayoutManager implements TreeLayoutManager {
 
     /**
      * 标准分布
-     *
+     * todo Lzy 布局精髓所在
      * @param treeView
      * @param rootView
      */
@@ -197,10 +199,12 @@ public class RightTreeLayoutManager implements TreeLayoutManager {
 
                 if (r == 0) {//偶数
                     for (int i = mid - 1; i >= 0; i--) {
+                        //找出上下两个子节点
                         NodeView topView = (NodeView) treeView.findNodeViewFromNodeModel(childNodes.get(i));
                         NodeView bottomView = (NodeView) treeView.findNodeViewFromNodeModel(childNodes.get(size - i - 1));
 
 
+                        //从中间往上下两边扩散画图
                         if (i == mid - 1) {
                             topTop = topTop - mDy / 2 - topView.getMeasuredHeight();
                             topRight = topLeft + topView.getMeasuredWidth();

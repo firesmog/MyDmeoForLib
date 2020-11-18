@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.owant.thinkmap.R;
 import com.owant.thinkmap.model.CurrentFileModel;
-import com.owant.thinkmap.view.RecycleItemClickListener;
-import com.owant.thinkmap.view.RecycleItemLongClickListener;
+import com.owant.thinkmap.interfaces.RecycleItemClickListener;
+import com.owant.thinkmap.interfaces.RecycleItemLongClickListener;
 
 import java.util.ArrayList;
 

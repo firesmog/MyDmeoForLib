@@ -45,6 +45,7 @@ public class NodeView extends TextView{
         this.treeNode = treeNode;
         setSelected(treeNode.isFocus());
         setText(treeNode.getValue());
+
     }
 
 }

@@ -26,8 +26,8 @@ import com.owant.thinkmap.util.DensityUtils;
 import com.owant.thinkmap.util.LOG;
 import com.owant.thinkmap.view.RightTreeLayoutManager;
 import com.owant.thinkmap.view.TreeView;
-import com.owant.thinkmap.view.TreeViewItemClick;
-import com.owant.thinkmap.view.TreeViewItemLongClick;
+import com.owant.thinkmap.interfaces.TreeViewItemClick;
+import com.owant.thinkmap.interfaces.TreeViewItemLongClick;
 
 import java.io.Serializable;
 

@@ -4,8 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.Rect;
-import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Display;
@@ -21,6 +19,8 @@ import com.nineoldandroids.view.ViewHelper;
 import com.owant.thinkmap.R;
 import com.owant.thinkmap.control.MoveAndScaleHandler;
 import com.owant.thinkmap.line.EaseCubicInterpolator;
+import com.owant.thinkmap.interfaces.TreeViewItemClick;
+import com.owant.thinkmap.interfaces.TreeViewItemLongClick;
 import com.owant.thinkmap.model.NodeModel;
 import com.owant.thinkmap.model.TreeModel;
 import com.owant.thinkmap.util.DensityUtils;
@@ -82,11 +82,14 @@ public class TreeView extends ViewGroup implements ScaleGestureDetector.OnScaleG
     public TreeView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
+        //1.clipChild用来定义他的子控件是否要在他应有的边界内进行绘制。 默认情况下，clipChild被设置为true。 也就是不允许进行扩展绘制。
+        //2. clipToPadding用来定义ViewGroup是否允许在padding中绘制。默认情况下，cliptopadding被设置为ture， 也就是把padding中的值都进行裁切了。
         setClipChildren(false);
         setClipToPadding(false);
 
 
         mPaint = new Paint();
+        //抗锯齿
         mPaint.setAntiAlias(true);
 
         mPath = new Path();
@@ -95,6 +98,7 @@ public class TreeView extends ViewGroup implements ScaleGestureDetector.OnScaleG
         mMoveAndScaleHandler = new MoveAndScaleHandler(context, this);
         mContext = context;
 
+        //循环的放大 还原  缩小 到指定数据，而不是手势缩放
         mLooperFlag = new LooperFlag<>(looperBody, new LooperFlag.LooperListener<Integer>() {
             @Override
             public void onLooper(Integer item) {
@@ -102,9 +106,11 @@ public class TreeView extends ViewGroup implements ScaleGestureDetector.OnScaleG
             }
         });
 
+        //点击空白处
         mGestureDetector = new GestureDetector(mContext, new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onDoubleTap(MotionEvent e) {
+                Log.d("LZY","double click here " );
                 mLooperFlag.next();
                 return true;
             }
@@ -147,6 +153,7 @@ public class TreeView extends ViewGroup implements ScaleGestureDetector.OnScaleG
         mHeight = h;
     }
 
+    //缩放
     public void looperBusiness(Integer item) {
         EaseCubicInterpolator easeCubicInterpolator = new EaseCubicInterpolator(0.39f, 0.13f, 0.33f, 1f);
         ObjectAnimator animator1;
@@ -183,11 +190,11 @@ public class TreeView extends ViewGroup implements ScaleGestureDetector.OnScaleG
 
         ViewBox viewBox = mTreeLayoutManager.onTreeLayoutCallBack();
         ViewBox box = viewBox;
-        Log.i(TAG,"box="+ box.toString());
+        Log.i(TAG,"box1111="+ box.toString());
 
         int w = box.right + dy;
         int h = box.bottom +Math.abs(box.top);
-        Log.i(TAG, "beLayout: " + getMeasuredWidth() + "," + getMeasuredHeight());
+        Log.i(TAG, "beLayout1111: " + getMeasuredWidth() + "," + getMeasuredHeight());
 
         //重置View的大小
         LayoutParams layoutParams = this.getLayoutParams();
@@ -232,10 +239,13 @@ public class TreeView extends ViewGroup implements ScaleGestureDetector.OnScaleG
         }
     }
 
+    /**
+    * 绘制VIew本身的内容，通过调用View.onDraw(canvas)函数实现
+    * 绘制自己的孩子通过dispatchDraw（canvas）实现
+    */
     @Override
     protected void dispatchDraw(Canvas canvas) {
         super.dispatchDraw(canvas);
-
         if (mTreeModel != null) {
             drawTreeLine(canvas, mTreeModel.getRootNode());
         }
@@ -280,7 +290,7 @@ public class TreeView extends ViewGroup implements ScaleGestureDetector.OnScaleG
         float width = 2f;
 
         mPaint.setStrokeWidth(dp2px(mContext, width));
-        mPaint.setColor(mContext.getResources().getColor(R.color.chelsea_cucumber));
+        mPaint.setColor(mContext.getResources().getColor(R.color.colorPrimary));
 
         int top = from.getTop();
         int formY = top + from.getMeasuredHeight() / 2;
@@ -499,7 +509,7 @@ public class TreeView extends ViewGroup implements ScaleGestureDetector.OnScaleG
         NodeModel<String> parentNode = getCurrentFocusNode().getParentNode();
         if (parentNode != null) {
             mTreeModel.addNode(parentNode, addNode);
-            Log.i(TAG, "addNode: true");
+            Log.i(TAG, "addNode: true" + parentNode.getValue() + ", nodeValue = " + nodeValue);
             addNodeViewToGroup(addNode);
 
 
